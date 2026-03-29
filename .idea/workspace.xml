@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d97130c-3be6-4e25-af42-31fe0583f503" name="Changes" comment="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="3d97130c-3be6-4e25-af42-31fe0583f503" name="Changes" comment="добавление модуля widget с двумя функциями">
+      <changelist_data name="stafeev nikita" email="stafeevn50@gmail.com" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,11 +78,28 @@
       <option name="project" value="LOCAL" />
       <updated>1774785140345</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="добавление модуля widget с двумя функциями">
+      <option name="closed" value="true" />
+      <created>1774787294037</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1774787294037</updated>
+    </task>
+    <task id="LOCAL-00005" summary="добавление модуля widget с двумя функциями">
+      <option name="closed" value="true" />
+      <created>1774788100731</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1774788100731</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;." />
-    <option name="LAST_COMMIT_MESSAGE" value="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;." />
+    <MESSAGE value="добавление модуля widget с двумя функциями" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавление модуля widget с двумя функциями" />
   </component>
 </project>
