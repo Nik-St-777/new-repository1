@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d97130c-3be6-4e25-af42-31fe0583f503" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/pythonProject7.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flake8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/masks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,5 +55,9 @@
       <updated>1774714764003</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;." />
+    <option name="LAST_COMMIT_MESSAGE" value="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;." />
   </component>
 </project>
