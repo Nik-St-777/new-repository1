@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d97130c-3be6-4e25-af42-31fe0583f503" name="Changes" comment="">
+    <list default="true" id="3d97130c-3be6-4e25-af42-31fe0583f503" name="Changes" comment="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +54,31 @@
       <option name="presentableId" value="Default" />
       <updated>1774714764003</updated>
     </task>
+    <task id="LOCAL-00001" summary="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;.">
+      <option name="closed" value="true" />
+      <created>1774783609692</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774783609692</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;.">
+      <option name="closed" value="true" />
+      <created>1774784596832</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774784596832</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Организуйте ваш проект — создайте основные пакеты: &#10;src&#10; — для исходного кода, &#10;tests&#10; — для тестов.&#10;Установите инструменты для проверки качества кода (Flake8, &#10;black&#10;, &#10;isort&#10;, &#10;mypy&#10;) в группу &#10;lint&#10; через Poetry.&#10;Настройте файл &#10;.flake8&#10; для конфигурации линтера Flake8.&#10;Добавьте конфигурации для &#10;black&#10;, &#10;isort&#10; и &#10;mypy&#10; в файл &#10;pyproject.toml&#10;.&#10;В пакете &#10;src&#10; создайте модуль с названием &#10;masks&#10;.&#10;Реализуйте в этом модуле две функции:&#10;Функцию маскировки номера банковской карты &#10;get_mask_card_number&#10;.&#10;Функцию маскировки номера банковского счета &#10;get_mask_account&#10;.">
+      <option name="closed" value="true" />
+      <created>1774785140345</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1774785140345</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
