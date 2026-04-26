@@ -21,3 +21,24 @@ lint = [
     "isort (>=8.0.1,<9.0.0)",
     "mypy (>=1.19.1,<2.0.0)"
 ]
+
+[tool.black]
+line-length = 119
+exclude = '\.git'
+
+[tool.isort]
+line_length = 119
+
+[tool.mypy]
+disallow_untyped_defs = true
+warn_return_any = true
+exclude = ["venv", ".venv"]
+
+[tool.ruff]
+# Включаем правила Flake8 (E, F, W) и типизацию (ANN)
+lint.select = ["E", "F", "W", "ANN", "I"]
+
+[tool.ruff.lint]
+# Разрешаем Ruff автоматически исправлять всё, что он может
+fixable = ["ALL"]
+
