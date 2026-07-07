@@ -48,3 +48,48 @@ def get_date(date_str: str) -> str:
 
     return f"{day}.{month}.{year}"
 
+import pytest
+
+# --- Фикстуры ---
+
+@pytest.fixture
+def correct_account_number() -> str:
+    """Возвращает стандартный 20-значный номер счета."""
+    return "73654108430135874305"
+
+
+@pytest.fixture
+def expected_masked_account() -> str:
+    """Возвращает ожидаемый результат маскирования для стандартного счета."""
+    return "**4305"
+
+
+@pytest.fixture
+def account_numbers_matrix():
+    """Фикстура-матрица для проверки различных номеров счетов (вход, ожидаемый результат)."""
+    return [
+        ("12345678901234567890", "**7890"),
+        ("00000000000000000000", "**0000"),
+        ("9876", "**9876"),  # Минимально допустимая длина для корректного среза
+    ]
+
+# --- Примеры тестов ---
+# Имппортируем ОДИН раз вверху файла из правильного модуля (masks или widget)
+from src.masks import get_mask_account
+
+
+# Тест с использованием простых фикстур
+def test_get_mask_account(correct_account_number, expected_masked_account):
+    # Убрали лишний внутренний импорт template
+    assert get_mask_account(correct_account_number) == expected_masked_account
+
+
+# Тест с использованием матрицы данных
+def test_get_mask_account_matrix(account_numbers_matrix):
+    # Убрали лишний внутренний импорт template
+    for account_number, expected in account_numbers_matrix:
+        # Исправили имя функции на правильное get_mask_account
+        assert get_mask_account(account_number) == expected
+
+
+

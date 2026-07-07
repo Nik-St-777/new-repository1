@@ -6,6 +6,7 @@ from src.widget import mask_account_card
 
 # 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки в зависимости от типа входных данных (карта или счет).
 
+
 # Указываем путь к функциям внутри модуля, где лежит mask_account_card
 @patch("src.widget.mask_card_number")
 def test_mask_card_calls_card_formatter(mock_mask_card):
@@ -57,31 +58,58 @@ def test_mask_card_with_single_word_name(mock_mask_card):
     mock_mask_card.assert_called_once_with("1234567812345678")
     assert result == "Mastercard XXXX XXXX XXXX XXXX"
 
+
 # 2. Параметризованные тесты с разными типами карт и счетов для проверки универсальности функции.
+
 
 @pytest.mark.parametrize(
     "input_data, expected_name, expected_number, mock_return, final_expected",
     [
         # Карты с названиями из одного слова
         ("Visa 4571736541084301", "Visa", "4571736541084301", "4571 73** **** 4301", "Visa 4571 73** **** 4301"),
-        ("Mastercard 5412751234123456", "Mastercard", "5412751234123456", "5412 75** **** 3456",
-         "Mastercard 5412 75** **** 3456"),
-        ("Maestro 6761123456789012", "Maestro", "6761123456789012", "6761 12** **** 9012",
-         "Maestro 6761 12** **** 9012"),
+        (
+            "Mastercard 5412751234123456",
+            "Mastercard",
+            "5412751234123456",
+            "5412 75** **** 3456",
+            "Mastercard 5412 75** **** 3456",
+        ),
+        (
+            "Maestro 6761123456789012",
+            "Maestro",
+            "6761123456789012",
+            "6761 12** **** 9012",
+            "Maestro 6761 12** **** 9012",
+        ),
         ("МИР 2200123456789012", "МИР", "2200123456789012", "2200 12** **** 9012", "МИР 2200 12** **** 9012"),
-
         # Карты с названиями из нескольких слов
-        ("Visa Platinum 7000792289606361", "Visa Platinum", "7000792289606361", "7000 79** **** 6361",
-         "Visa Platinum 7000 79** **** 6361"),
-        ("American Express 378282246310005", "American Express", "378282246310005", "3782 82** **** 1005",
-         "American Express 3782 82** **** 1005"),
-        ("Золотая Корона 9999888877776666", "Золотая Корона", "9999888877776666", "9999 88** **** 6666",
-         "Золотая Корона 9999 88** **** 6666"),
-    ]
+        (
+            "Visa Platinum 7000792289606361",
+            "Visa Platinum",
+            "7000792289606361",
+            "7000 79** **** 6361",
+            "Visa Platinum 7000 79** **** 6361",
+        ),
+        (
+            "American Express 378282246310005",
+            "American Express",
+            "378282246310005",
+            "3782 82** **** 1005",
+            "American Express 3782 82** **** 1005",
+        ),
+        (
+            "Золотая Корона 9999888877776666",
+            "Золотая Корона",
+            "9999888877776666",
+            "9999 88** **** 6666",
+            "Золотая Корона 9999 88** **** 6666",
+        ),
+    ],
 )
 @patch("src.widget.mask_card_number")
-def test_mask_account_card_various_cards(mock_mask_card, input_data, expected_name, expected_number, mock_return,
-                                         final_expected):
+def test_mask_account_card_various_cards(
+    mock_mask_card, input_data, expected_name, expected_number, mock_return, final_expected
+):
     """Проверка работы функции с различными типами и названиями карт"""
     # Настраиваем возвращаемое значение для мока
     mock_mask_card.return_value = mock_return
@@ -101,11 +129,12 @@ def test_mask_account_card_various_cards(mock_mask_card, input_data, expected_na
         ("Счет 73654108430135874305", "Счет", "73654108430135874305", "**4305", "Счет **4305"),
         ("счет 40817810500001234567", "счет", "40817810500001234567", "**4567", "счет **4567"),
         ("СЧЕТ 11112222333344445555", "СЧЕТ", "11112222333344445555", "**5555", "СЧЕТ **5555"),
-    ]
+    ],
 )
 @patch("src.widget.mask_account_number")
-def test_mask_account_card_various_accounts(mock_mask_account, input_data, expected_name, expected_number, mock_return,
-                                            final_expected):
+def test_mask_account_card_various_accounts(
+    mock_mask_account, input_data, expected_name, expected_number, mock_return, final_expected
+):
     """Проверка работы функции со счетами в разных регистрах"""
     # Настраиваем возвращаемое значение для мока
     mock_mask_account.return_value = mock_return
@@ -117,8 +146,10 @@ def test_mask_account_card_various_accounts(mock_mask_account, input_data, expec
     # Проверяем склейку слова "Счет" и маски
     assert result == final_expected
 
+
 # 3. Тестирование функции на обработку некорректных входных данных и проверка ее устойчивости к ошибкам.
 # 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки в зависимости от типа входных данных (карта или счет).
+
 
 # Указываем путь к функциям внутри модуля, где лежит mask_account_card
 @patch("src.widget.mask_card_number")
@@ -170,6 +201,7 @@ def test_mask_card_with_single_word_name(mock_mask_card):
 
     mock_mask_card.assert_called_once_with("1234567812345678")
     assert result == "Mastercard XXXX XXXX XXXX XXXX"
+
 
 # 1. Тестирование правильности преобразования даты.
 import pytest
@@ -202,6 +234,7 @@ def test_get_date_formats(input_date, expected_output):
 def test_get_date_short_string():
     """Тест с минимально достаточной строкой (только дата без времени)"""
     assert get_date("2023-05-18") == "18.05.2023"
+
 
 # 2.Проверка работы функции на различных входных форматах даты, включая граничные случаи и нестандартные строки с датами.
 
@@ -260,6 +293,7 @@ def test_get_date_wrong_types(invalid_type):
     """Передача нестроковых типов должна вызывать ошибку TypeError при попытке взять срез"""
     with pytest.raises(TypeError):
         get_date(invalid_type)
+
 
 # 3. Проверка, что функция корректно обрабатывает входные строки, где отсутствует дата.
 @pytest.mark.parametrize(

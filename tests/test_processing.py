@@ -1,6 +1,7 @@
 import pytest
 from src.processing import filter_by_state
 
+
 # 1. Тестирование фильтрации списка словарей по заданному статусу state
 @pytest.fixture
 def sample_data():
@@ -52,7 +53,9 @@ def test_counts(sample_data, state, expected_count):
     """Параметризованный тест для проверки количества результатов"""
     assert len(filter_by_state(sample_data, state)) == expected_count
 
-# 2.Проверка работы функции при отсутствии словарей с указанным статусом state в списке.
+
+# 2. Проверка работы функции при отсутствии словарей с указанным статусом state в списке.
+
 
 def test_filter_by_state_no_matching_status():
     """Проверка возврата пустого списка, если искомый статус отсутствует"""
@@ -60,7 +63,7 @@ def test_filter_by_state_no_matching_status():
     sample_data = [
         {"id": 1, "state": "CANCELED"},
         {"id": 2, "state": "PENDING"},
-        {"id": 3, "amount": 100}  # Ключ state вообще отсутствует
+        {"id": 3, "amount": 100},  # Ключ state вообще отсутствует
     ]
 
     # Ищем статус, которого точно нет в списке
@@ -70,7 +73,9 @@ def test_filter_by_state_no_matching_status():
     assert result == []
     assert len(result) == 0
 
+
 # 3. Параметризация тестов для различных возможных значений статуса state .
+
 
 @pytest.fixture
 def sample_data():
@@ -87,13 +92,13 @@ def sample_data():
 @pytest.mark.parametrize(
     "search_state, expected_count",
     [
-        ("EXECUTED", 2),       # Стандартный статус (повторяется)
-        ("CANCELED", 1),       # Стандартный статус (одиночный)
-        ("PENDING", 1),        # Другой валидный статус
-        ("FAILED", 1),         # Краевой валидный статус
-        ("executed", 0),       # Проверка регистрозависимости (строчные буквы)
-        ("UNKNOWN", 0),        # Несуществующий статус
-        ("", 0),               # Пустая строка вместо статуса
+        ("EXECUTED", 2),  # Стандартный статус (повторяется)
+        ("CANCELED", 1),  # Стандартный статус (одиночный)
+        ("PENDING", 1),  # Другой валидный статус
+        ("FAILED", 1),  # Краевой валидный статус
+        ("executed", 0),  # Проверка регистрозависимости (строчные буквы)
+        ("UNKNOWN", 0),  # Несуществующий статус
+        ("", 0),  # Пустая строка вместо статуса
     ],
 )
 def test_filter_by_state_parameterized(sample_data, search_state, expected_count):
@@ -160,10 +165,7 @@ def test_sort_by_date_invalid_formats():
 
 def test_sort_by_date_missing_key():
     """Дополнительно: проверка падения с ошибкой, если ключа 'date' нет"""
-    invalid_data = [
-        {"id": 1, "date": "2023-01-15T12:00:00"},
-        {"id": 2}  # Ключ 'date' отсутствует
-    ]
+    invalid_data = [{"id": 1, "date": "2023-01-15T12:00:00"}, {"id": 2}]  # Ключ 'date' отсутствует
 
     # Функция должна вызвать KeyError, так как обращается к ключу напрямую: x['date']
     with pytest.raises(KeyError):

@@ -6,7 +6,9 @@ from src.masks import get_mask_card_number, get_mask_account
 def test_get_mask_card_number_standard():
     assert get_mask_card_number("7000792289606361") == "7000 79** **** 6361"
 
+
 # 2. Проверка работы функции на различных входных форматах номеров карт, включая граничные случаи и нестандартные длины номеров
+
 
 def test_mask_card_number_short_length():
     """Проверка граничного случая: нестандартная короткая длина (13 знаков)."""
@@ -22,9 +24,10 @@ def test_mask_card_number_long_length():
     import pytest
     from src.masks import get_mask_account
 
+
 # 1. Тестирование правильности маскирования номера счета.
 def test_get_mask_account():
-    assert get_mask_account("73654108430135874305")== "**4305"
+    assert get_mask_account("73654108430135874305") == "**4305"
 
     # 2.Проверка работы функции с различными форматами и длинами номеров счетов.
     def test_mask_account_standard():
@@ -47,7 +50,9 @@ def test_get_mask_account():
         """Тест номера счета с пробелами"""
         assert get_mask_account("1234 5678 9012") == "**9012"
 
-        # 3.Проверка, что функция корректно обрабатывает входные данные, где номер счета меньше ожидаемой длины.
+        # 3. Проверка, что функция корректно обрабатывает входные данные, где номер счета меньше ожидаемой длины.
+
+
 def test_mask_account_less_than_four_symbols():
     """Номер счета состоит из 3 символов (меньше 4)"""
     assert get_mask_account("123") == "**123"
@@ -61,6 +66,3 @@ def test_mask_account_one_symbol():
 def test_mask_account_empty_string():
     """В функцию передана пустая строка"""
     assert get_mask_account("") == "**"
-
-
-
