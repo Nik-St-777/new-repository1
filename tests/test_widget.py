@@ -1,10 +1,11 @@
+from src.widget import mask_account_card, get_date
+
 from unittest.mock import patch
+
 import pytest
 
-from src.widget import mask_account_card
-
-
-# 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки в зависимости от типа входных данных (карта или счет).
+# 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки
+# в зависимости от типа входных данных (карта или счет).
 
 
 # Указываем путь к функциям внутри модуля, где лежит mask_account_card
@@ -148,12 +149,13 @@ def test_mask_account_card_various_accounts(
 
 
 # 3. Тестирование функции на обработку некорректных входных данных и проверка ее устойчивости к ошибкам.
-# 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки в зависимости от типа входных данных (карта или счет).
+# 1. Тесты для проверки, что функция корректно распознает и применяет нужный тип маскировки
+# в зависимости от типа входных данных (карта или счет).
 
 
 # Указываем путь к функциям внутри модуля, где лежит mask_account_card
 @patch("src.widget.mask_card_number")
-def test_mask_card_calls_card_formatter(mock_mask_card):
+def test_mask_card_calls_card_formatter_2(mock_mask_card):
     """Проверка, что для карты вызывается функция маскирования карты"""
     # Настраиваем фейковый возврат для функции маскирования карты
     mock_mask_card.return_value = "7000 79** **** 6361"
@@ -167,7 +169,7 @@ def test_mask_card_calls_card_formatter(mock_mask_card):
 
 
 @patch("src.widget.mask_account_number")
-def test_mask_account_calls_account_formatter(mock_mask_account):
+def test_mask_account_calls_account_formatter_2(mock_mask_account):
     """Проверка, что для счета вызывается функция маскирования счета"""
     # Настраиваем фейковый возврат для функции маскирования счета
     mock_mask_account.return_value = "**4305"
@@ -181,10 +183,9 @@ def test_mask_account_calls_account_formatter(mock_mask_account):
 
 
 @patch("src.widget.mask_account_number")
-def test_mask_account_case_insensitive(mock_mask_account):
+def test_mask_account_case_insensitive_2(mock_mask_account):
     """Проверка, что слово 'счет' распознается в любом регистре (Счет, СЧЕТ, счет)"""
     mock_mask_account.return_value = "**4305"
-
     # Передаем "счет" маленькими буквами
     result = mask_account_card("счет 73654108430135874305")
 
@@ -193,7 +194,7 @@ def test_mask_account_case_insensitive(mock_mask_account):
 
 
 @patch("src.widget.mask_card_number")
-def test_mask_card_with_single_word_name(mock_mask_card):
+def test_mask_card_with_single_word_name_2(mock_mask_card):
     """Проверка работы с картой, название которой состоит из одного слова"""
     mock_mask_card.return_value = "XXXX XXXX XXXX XXXX"
 
@@ -204,9 +205,9 @@ def test_mask_card_with_single_word_name(mock_mask_card):
 
 
 # 1. Тестирование правильности преобразования даты.
-import pytest
 
-from src.widget import get_date  # Замените путь, если функция лежит в другом файле
+
+# Замените путь, если функция лежит в другом файле
 
 
 def test_get_date_standard():
@@ -236,11 +237,8 @@ def test_get_date_short_string():
     assert get_date("2023-05-18") == "18.05.2023"
 
 
-# 2.Проверка работы функции на различных входных форматах даты, включая граничные случаи и нестандартные строки с датами.
-
-import pytest
-
-from src.widget import get_date  # Замените путь на ваш актуальный
+# 2. Проверка работы функции на различных входных форматах даты, включая граничные случаи
+# и нестандартные строки с датами.
 
 
 # 1. Тесты на нестандартные форматы, которые функция всё равно обработает успешно из-за совпадения индексов

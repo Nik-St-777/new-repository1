@@ -1,4 +1,3 @@
-import pytest
 from src.masks import get_mask_card_number, get_mask_account
 
 
@@ -7,7 +6,7 @@ def test_get_mask_card_number_standard():
     assert get_mask_card_number("7000792289606361") == "7000 79** **** 6361"
 
 
-# 2. Проверка работы функции на различных входных форматах номеров карт, включая граничные случаи и нестандартные длины номеров
+# 2. Проверка работы функции на различных форматах номеров карт, включая граничные случаи и нестандартные длины номеров
 
 
 def test_mask_card_number_short_length():
@@ -20,9 +19,6 @@ def test_mask_card_number_long_length():
     """Проверка граничного случая: нестандартная длинная длина (19 знаков)."""
     # Из-за жёстких срезов [4:6] и [-4:] средняя часть цифр просто проигнорируется
     assert get_mask_card_number("1234567890123456789") == "1234 56** **** 6789"
-
-    import pytest
-    from src.masks import get_mask_account
 
 
 # 1. Тестирование правильности маскирования номера счета.

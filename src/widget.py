@@ -1,24 +1,26 @@
+from src.masks import get_mask_account
+
+
 def mask_card_number(number: str) -> str:
     """
     Создаём функцию mask_account_card, которая умеет обрабатывать информацию как о картах, так и о счетах.
     """
-# Маскирует номер карты: 1234 56** **** 3456
-
+    # Маскирует номер карты: 1234 56** **** 3456
 
     return f"{number[:4]} {number[4:6]}** **** {number[-4:]}"
 
 
 def mask_account_number(number: str) -> str:
-# Маскирует номер счета: **4305
-     return f"**{number[-4:]}"
+    # Маскирует номер счета: **4305
+    return f"**{number[-4:]}"
 
 
 def mask_account_card(data: str) -> str:
-#Маскирует данные карты или счета, разделяя тип и номер
+    # Маскирует данные карты или счета, разделяя тип и номер
     parts = data.split()
 
-# Номер всегда в конце, но может состоять из одной части.
-# Тип может состоять из нескольких слов (например, 'Visa Platinum')
+    # Номер всегда в конце, но может состоять из одной части.
+    # Тип может состоять из нескольких слов (например, 'Visa Platinum')
     number = parts[-1]
     name = " ".join(parts[:-1])
 
@@ -35,8 +37,6 @@ def mask_account_card(data: str) -> str:
 # -> Счет **4305
 
 
-
-
 def get_date(date_str: str) -> str:
     # Если пришла не строка, принудительно выбрасываем TypeError
     if not isinstance(date_str, str):
@@ -48,23 +48,20 @@ def get_date(date_str: str) -> str:
 
     return f"{day}.{month}.{year}"
 
-import pytest
 
 # --- Фикстуры ---
 
-@pytest.fixture
+
 def correct_account_number() -> str:
     """Возвращает стандартный 20-значный номер счета."""
     return "73654108430135874305"
 
 
-@pytest.fixture
 def expected_masked_account() -> str:
     """Возвращает ожидаемый результат маскирования для стандартного счета."""
     return "**4305"
 
 
-@pytest.fixture
 def account_numbers_matrix():
     """Фикстура-матрица для проверки различных номеров счетов (вход, ожидаемый результат)."""
     return [
@@ -73,9 +70,9 @@ def account_numbers_matrix():
         ("9876", "**9876"),  # Минимально допустимая длина для корректного среза
     ]
 
+
 # --- Примеры тестов ---
-# Имппортируем ОДИН раз вверху файла из правильного модуля (masks или widget)
-from src.masks import get_mask_account
+# Импортируем ОДИН раз вверху файла из правильного модуля (masks или widget)
 
 
 # Тест с использованием простых фикстур
@@ -90,6 +87,3 @@ def test_get_mask_account_matrix(account_numbers_matrix):
     for account_number, expected in account_numbers_matrix:
         # Исправили имя функции на правильное get_mask_account
         assert get_mask_account(account_number) == expected
-
-
-

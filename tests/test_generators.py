@@ -1,26 +1,15 @@
 # тест на функцию filter_by_currency
-import pytest
+from src.generators import transaction_descriptions
 from src.generators import filter_by_currency
+from src.generators import card_number_generator
 
 
 def test_filter_by_currency_success():
     """Тест успешной фильтрации транзакций по заданной валюте USD."""
     mock_transactions = [
-        {
-            "id": 1,
-            "operationAmount": {"currency": {"code": "USD"}},
-            "description": "Перевод организации"
-        },
-        {
-            "id": 2,
-            "operationAmount": {"currency": {"code": "RUB"}},
-            "description": "Перевод со счета на счет"
-        },
-        {
-            "id": 3,
-            "operationAmount": {"currency": {"code": "USD"}},
-            "description": "Перевод с карты на карту"
-        }
+        {"id": 1, "operationAmount": {"currency": {"code": "USD"}}, "description": "Перевод организации"},
+        {"id": 2, "operationAmount": {"currency": {"code": "RUB"}}, "description": "Перевод со счета на счет"},
+        {"id": 3, "operationAmount": {"currency": {"code": "USD"}}, "description": "Перевод с карты на карту"},
     ]
 
     # Получаем итератор и преобразуем его в список
@@ -35,9 +24,7 @@ def test_filter_by_currency_success():
 
 def test_filter_by_currency_no_match():
     """Тест ситуации, когда транзакции с указанной валютой отсутствуют."""
-    mock_transactions = [
-        {"id": 1, "operationAmount": {"currency": {"code": "RUB"}}}
-    ]
+    mock_transactions = [{"id": 1, "operationAmount": {"currency": {"code": "RUB"}}}]
 
     result = list(filter_by_currency(mock_transactions, "EUR"))
 
@@ -51,7 +38,7 @@ def test_filter_by_currency_missing_keys():
         {"id": 1},  # Полностью отсутствует operationAmount
         {"id": 2, "operationAmount": {}},  # Отсутствует currency
         {"id": 3, "operationAmount": {"currency": {}}},  # Отсутствует code
-        {"id": 4, "operationAmount": {"currency": {"code": "USD"}}}  # Корректная запись
+        {"id": 4, "operationAmount": {"currency": {"code": "USD"}}},  # Корректная запись
     ]
 
     result = list(filter_by_currency(mock_transactions, "USD"))
@@ -59,9 +46,6 @@ def test_filter_by_currency_missing_keys():
     # Функция не должна упасть, а должна вернуть только одну корректную транзакцию
     assert len(result) == 1
     assert result[0]["id"] == 4
-
-import pytest
-from src.generators import transaction_descriptions
 
 
 def test_transaction_descriptions_success():
@@ -100,20 +84,13 @@ def test_transaction_descriptions_empty():
 
     assert result == []
 
-import pytest
-from src.generators import card_number_generator
-
 
 def test_card_number_generator_success():
     """Тест генерации номеров карт в заданном диапазоне."""
     # Превращаем генератор в список для проверки всех значений сразу
     result = list(card_number_generator(1, 3))
 
-    expected = [
-        "0000 0000 0000 0001",
-        "0000 0000 0000 0002",
-        "0000 0000 0000 0003"
-    ]
+    expected = ["0000 0000 0000 0001", "0000 0000 0000 0002", "0000 0000 0000 0003"]
 
     assert result == expected
 

@@ -16,6 +16,7 @@ def filter_by_currency(transactions, currency):
         if currency_code == currency:
             yield transaction
 
+
 # код генератора
 def transaction_descriptions(transactions):
     """
@@ -38,4 +39,3 @@ def card_number_generator(start, end):
         formatted_card = f"{card_str[0:4]} {card_str[4:8]} {card_str[8:12]} {card_str[12:16]}"
 
         yield formatted_card
-

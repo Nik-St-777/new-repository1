@@ -1,5 +1,6 @@
 import pytest
-from src.processing import filter_by_state
+
+from src.processing import filter_by_state, sort_by_date
 
 
 # 1. Тестирование фильтрации списка словарей по заданному статусу state
@@ -78,7 +79,7 @@ def test_filter_by_state_no_matching_status():
 
 
 @pytest.fixture
-def sample_data():
+def sample_data_1():
     """Фикстура с тестовым набором данных"""
     return [
         {"id": 1, "state": "EXECUTED"},
@@ -107,8 +108,7 @@ def test_filter_by_state_parameterized(sample_data, search_state, expected_count
     assert len(result) == expected_count
 
 
-import pytest
-from src.processing import sort_by_date  # Замените your_module на имя вашего файла
+# Замените your_module на имя вашего файла
 
 
 def test_sort_by_date_order():
