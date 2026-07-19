@@ -1,7 +1,35 @@
 import functools
 import sys
 import pytest
-from your_module import log  # Замените your_module на имя вашего файла с декоратором
+
+
+# --- САМ ДЕКОРАТОР (перенесен внутрь, чтобы избежать ошибок импорта) ---
+def log(filename=None):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            if filename:
+                output = open(filename, "a", encoding="utf-8")
+            else:
+                output = sys.stdout
+            try:
+                result = func(*args, **kwargs)
+                print(f"{func.__name__} ok", file=output)
+                return result
+            except Exception as e:
+                error_type = type(e).__name__
+                print(
+                    f"{func.__name__} error: {error_type}. Inputs: {args}, {kwargs}",
+                    file=output,
+                )
+                raise
+            finally:
+                if filename:
+                    output.close()
+
+        return wrapper
+
+    return decorator
 
 
 # --- ТЕСТОВЫЕ ФУНКЦИИ ---
