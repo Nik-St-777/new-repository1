@@ -1,9 +1,11 @@
 import functools
+import io
 import sys
-import pytest
+import unittest
+from unittest.mock import call, mock_open, patch
 
 
-# --- САМ ДЕКОРАТОР (перенесен внутрь, чтобы избежать ошибок импорта) ---
+# Тестируемый декоратор
 def log(filename=None):
     def decorator(func):
         @functools.wraps(func)
@@ -32,78 +34,69 @@ def log(filename=None):
     return decorator
 
 
-# --- ТЕСТОВЫЕ ФУНКЦИИ ---
-@log()
-def success_calc(a, b):
-    return a + b
+class TestLogDecorator(unittest.TestCase):
 
+    def test_console_success(self):
+        """Проверка успешного вызова с выводом в консоль."""
 
-@log()
-def fail_calc(a, b):
-    return a / b
+        @log()
+        def sample_func(x, y):
+            return x + y
 
+        with patch("sys.stdout", new_callable=io.StringIO) as mock_stdout:
+            result = sample_func(2, 3)
+            self.assertEqual(result, 5)
+            self.assertEqual(mock_stdout.getvalue(), "sample_func ok\n")
 
-# --- ТЕСТЫ ДЛЯ ВЫВОДА В КОНСОЛЬ (sys.stdout) ---
+    def test_console_error(self):
+        """Проверка логирования ошибки при выводе в консоль."""
 
-def test_log_to_console_success(capsys):
-    """Проверяет успешный лог в консоль."""
-    result = success_calc(2, 3)
+        @log()
+        def division_func(x, y):
+            return x / y
 
-    assert result == 5
-    captured = capsys.readouterr()
-    assert captured.out == "success_calc ok\n"
+        with patch("sys.stdout", new_callable=io.StringIO) as mock_stdout:
+            with self.assertRaises(ZeroDivisionError):
+                division_func(1, 0)
 
+            expected_output = (
+                "division_func error: ZeroDivisionError. Inputs: (1, 0), {}\n"
+            )
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-def test_log_to_console_error(capsys):
-    """Проверяет лог ошибки в консоль и проброс исключения."""
-    with pytest.raises(ZeroDivisionError):
-        fail_calc(1, 0)
+    @patch("builtins.open", new_callable=mock_open)
+    def test_file_success(self, mock_file):
+        """Проверка записи успешного лога в файл."""
 
-    captured = capsys.readouterr()
-    expected_log = "fail_calc error: ZeroDivisionError. Inputs: (1, 0), {}\n"
-    assert captured.out == expected_log
+        @log(filename="app.log")
+        def sample_func(x, y=10):
+            return x * y
 
+        result = sample_func(5, y=2)
+        self.assertEqual(result, 10)
 
-# --- ТЕСТЫ ДЛЯ ЗАПИСИ В ФАЙЛ ---
+        mock_file.assert_called_once_with("app.log", "a", encoding="utf-8")
 
-def test_log_to_file_success(tmp_path):
-    """Проверяет успешный лог в файл."""
-    log_file = tmp_path / "success.log"
+        mock_file().write.assert_has_calls([
+            call("sample_func ok"),
+            call("\n")
+        ])
 
-    @log(filename=str(log_file))
-    def custom_success(x):
-        return x * 2
+    @patch("builtins.open", new_callable=mock_open)
+    def test_file_error(self, mock_file):
+        """Проверка записи лога ошибки в файл."""
 
-    res = custom_success(5)
-    assert res == 10
-    assert log_file.read_text(encoding="utf-8") == "custom_success ok\n"
+        @log(filename="errors.log")
+        def fail_func(*args, **kwargs):
+            raise ValueError("Invalid data")
 
+        with self.assertRaises(ValueError):
+            fail_func(1, "test", key="val")
 
-def test_log_to_file_error(tmp_path):
-    """Проверяет лог ошибки в файл."""
-    log_file = tmp_path / "error.log"
+        mock_file.assert_called_once_with("errors.log", "a", encoding="utf-8")
 
-    @log(filename=str(log_file))
-    def custom_fail():
-        raise ValueError("bad value")
-
-    with pytest.raises(ValueError):
-        custom_fail()
-
-    expected_log = "custom_fail error: ValueError. Inputs: (), {}\n"
-    assert log_file.read_text(encoding="utf-8") == expected_log
-
-
-def test_log_to_file_append(tmp_path):
-    """Проверяет, что логи дописываются в файл (режим 'a'), а не перезаписывают его."""
-    log_file = tmp_path / "append.log"
-
-    @log(filename=str(log_file))
-    def dummy():
-        pass
-
-    dummy()
-    dummy()
-
-    content = log_file.read_text(encoding="utf-8")
-    assert content == "dummy ok\ndummy ok\n"
+        expected_text = "fail_func error: ValueError. Inputs: (1, 'test'), {'key': 'val'}"
+        mock_file().write.assert_has_calls([
+            call(expected_text),
+            call("\n")
+        ])
