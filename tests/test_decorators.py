@@ -3,35 +3,7 @@ import io
 import sys
 import unittest
 from unittest.mock import call, mock_open, patch
-
-
-# Тестируемый декоратор
-def log(filename=None):
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            if filename:
-                output = open(filename, "a", encoding="utf-8")
-            else:
-                output = sys.stdout
-            try:
-                result = func(*args, **kwargs)
-                print(f"{func.__name__} ok", file=output)
-                return result
-            except Exception as e:
-                error_type = type(e).__name__
-                print(
-                    f"{func.__name__} error: {error_type}. Inputs: {args}, {kwargs}",
-                    file=output,
-                )
-                raise
-            finally:
-                if filename:
-                    output.close()
-
-        return wrapper
-
-    return decorator
+from src.decorators import log
 
 
 class TestLogDecorator(unittest.TestCase):
