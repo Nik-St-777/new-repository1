@@ -1,46 +1,72 @@
-# тест на правильность работы функции, которая принимает на вход путь до Json-файла и возвращает список словарей с данными о финансовых транзакциях
-
 import json
-import pytest
-from unittest.mock import mock_open, patch
+from unittest.mock import patch, mock_open
+from src.utils import load_transactions
 
 
+@patch("os.path.exists", return_value=True)  # 1. Говорим: "Файл существует!"
+@patch("builtins.open", new_callable=mock_open,
+       read_data='[{"id": 1, "amount": 100}]')  # 2. Говорим: "Вот что внутри файла"
+def test_load_transactions_success_mock(mock_open_obj, mock_exists):
+    """Тест: файл существует, JSON валидный, внутри список -> возвращаем данные"""
+    fake_path = "any_path.json"
 
-def test_load_transactions_success():
-    """Тест успешной загрузки корректного списка транзакций."""
-    test_data = [{"id": 1, "amount": 100}, {"id": 2, "amount": 200}]
-    json_data = json.dumps(test_data)
+    result = load_transactions(fake_path)
 
-    # Имитируем, что файл существует, и подменяем его содержимое
-    with patch("os.path.exists", return_value=True), patch(
-        "builtins.open", mock_open(read_data=json_data)
-    ):
-        result = load_transactions("fake_path.json")
-        assert result == test_data
+    # Проверяем результат
+    assert result == [{"id": 1, "amount": 100}]
 
-
-def test_load_transactions_file_not_found():
-    """Тест ситуации, когда файл не существует."""
-    with patch("os.path.exists", return_value=False):
-        result = load_transactions("missing_file.json")
-        assert result == []
+    # (Опционально) Проверяем, что функции были вызваны
+    mock_exists.assert_called_once_with(fake_path)
+    mock_open_obj.assert_called_once()
 
 
-def test_load_transactions_invalid_json():
-    """Тест ситуации, когда файл поврежден или содержит некорректный JSON."""
-    with patch("os.path.exists", return_value=True), patch(
-        "builtins.open", mock_open(read_data="invalid json data")
-    ):
-        result = load_transactions("corrupted.json")
-        assert result == []
+@patch("os.path.exists", return_value=False)  # 1. Говорим: "Файла НЕТ!"
+def test_load_transactions_file_not_found_mock(mock_exists):
+    """Тест: файла не существует -> сразу возвращаем []"""
+    fake_path = "non_existent.json"
+
+    result = load_transactions(fake_path)
+
+    assert result == []
+    # Функция даже не должна пытаться открыть файл, если его нет
+    mock_exists.assert_called_once_with(fake_path)
 
 
-def test_load_transactions_not_a_list():
-    """Тест ситуации, когда JSON корректен, но внутри словарь вместо списка."""
-    dict_data = json.dumps({"status": "error", "message": "not a list"})
+@patch("os.path.exists", return_value=True)
+@patch("builtins.open", side_effect=json.JSONDecodeError("Invalid JSON", "", 0))
+def test_load_transactions_invalid_json_mock(mock_open_obj, mock_exists):
+    """Тест: файл есть, но внутри мусор (ошибка JSON) -> возвращаем []"""
+    fake_path = "bad_format.json"
 
-    with patch("os.path.exists", return_value=True), patch(
-        "builtins.open", mock_open(read_data=dict_data)
-    ):
-        result = load_transactions("wrong_format.json")
-        assert result == []
+    result = load_transactions(fake_path)
+
+    assert result == []
+    mock_exists.assert_called_once_with(fake_path)
+    mock_open_obj.assert_called_once()
+
+
+@patch("os.path.exists", return_value=True)
+@patch("builtins.open", new_callable=mock_open, read_data='{"id": 5}')  # Внутри ОДИН словарь, а не список
+def test_load_transactions_not_a_list_mock(mock_open_obj, mock_exists):
+    """Тест: файл валидный JSON, но внутри НЕ список (один объект) -> возвращаем []"""
+    fake_path = "single_object.json"
+
+    result = load_transactions(fake_path)
+
+    assert result == []
+    mock_exists.assert_called_once_with(fake_path)
+    mock_open_obj.assert_called_once()
+
+
+@patch("os.path.exists", return_value=True)
+@patch("builtins.open", new_callable=mock_open, read_data='[]')  # Пустой список
+def test_load_transactions_empty_list_mock(mock_open_obj, mock_exists):
+    """Тест: файл содержит пустой список [] -> возвращаем []"""
+    fake_path = "empty_list.json"
+
+    result = load_transactions(fake_path)
+
+    assert result == []
+    mock_exists.assert_called_once_with(fake_path)
+
+
