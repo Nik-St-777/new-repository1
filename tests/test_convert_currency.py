@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 import os
-from external_api import convert_currency
+from src.external_api import convert_currency
 
 
 @patch.dict(os.environ, {"API_KEY": "test_key", "BASE_URL": "https://api.example.com"})
