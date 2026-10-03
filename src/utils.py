@@ -1,5 +1,30 @@
 import json
 import os
+import logging
+
+# Настройка логера для модуля
+logger = logging.getLogger("utils")
+logger.setLevel(logging.DEBUG)
+
+# Обработчик для файла
+file_handler = logging.FileHandler("utils.log", encoding="utf-8")
+file_handler.setLevel(logging.DEBUG)
+
+# Обработчик для консоли
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Единый формат сообщений
+formatter = logging.Formatter(
+    "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+file_handler.setFormatter(formatter)
+console_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
+
 
 def load_transactions(file_path: str) -> list:
     """Принимает путь к JSON-файлу и возвращает список словарей с транзакциями.

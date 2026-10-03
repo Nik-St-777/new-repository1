@@ -1,3 +1,27 @@
+import logging
+
+# Настройка логера для модуля
+logger = logging.getLogger("masks")
+logger.setLevel(logging.DEBUG)
+
+# Обработчик для файла
+file_handler = logging.FileHandler("masks.log", encoding="utf-8")
+file_handler.setLevel(logging.DEBUG)
+
+# Обработчик для консоли
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Единый формат сообщений
+formatter = logging.Formatter(
+    "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+file_handler.setFormatter(formatter)
+console_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 def get_mask_card_number(card_number: str) -> str:
     """
     Функция get_mask_card_number принимает на вход номер карты и возвращает ее маску
