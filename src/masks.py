@@ -1,4 +1,7 @@
 import logging
+from logger_config import setup_logger
+
+logger = setup_logger("masks")
 
 # Настройка логера для модуля
 logger = logging.getLogger("masks")

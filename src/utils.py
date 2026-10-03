@@ -1,6 +1,9 @@
 import json
 import os
 import logging
+from logger_config import setup_logger
+
+logger = setup_logger("utils")
 
 # Настройка логера для модуля
 logger = logging.getLogger("utils")
