@@ -1,32 +1,14 @@
-import json
 import logging
-import os
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
+logger = logging.getLogger("utils")
 
 
-def do_something():
-    logger.info("Выполняем полезную функцию в utils")
-    # ...
-
-
-def load_transactions(file_path: str) -> list:
-    """Принимает путь к JSON-файлу и возвращает список словарей с транзакциями.
-
-    В случае отсутствия файла, его пустоты или неверного формата возвращает [].
-    """
-    if not os.path.exists(file_path):
-        return []
-
+def do_something(value):
+    logger.debug("Вход в do_something, value=%r", value)
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            data = json.load(file)
-
-            if isinstance(data, list):
-                return data
-            else:
-                return []
-
-    except json.JSONDecodeError:
-        return []
+        result = value * 2
+        logger.info("do_something: успех, результат=%r", result)
+        return result
+    except Exception as e:
+        logger.error("do_something: ошибка, value=%r, exception=%s", value, e, exc_info=True)
+        raise

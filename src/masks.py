@@ -1,18 +1,16 @@
 import logging
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
+logger = logging.getLogger("masks")
 
 
-def get_mask_card_number(card_number: str) -> str:
-    """Принимает номер карты и возвращает её маску."""
-    masked = (
-        f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
-    )
-    return masked
-
-
-def get_mask_account(account_number: str) -> str:
-    """Принимает номер счёта и возвращает его маску."""
-    return f"**{account_number[-4:]}"
-
+def apply_mask(data):
+    logger.debug("Вход в apply_mask, data=%r", data)
+    try:
+        if not data:
+            raise ValueError("Пустые данные")
+        result = f"masked_{data}"
+        logger.info("apply_mask: успех, результат=%r", result)
+        return result
+    except Exception as e:
+        logger.error("apply_mask: ошибка, data=%r, exception=%s", data, e, exc_info=True)
+        raise
