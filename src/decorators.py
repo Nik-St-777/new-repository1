@@ -16,6 +16,7 @@ def log(filename=None):
     Returns:
         function: Декоратор, принимающий целевую функцию.
     """
+
     def decorator(func):
         """Принимает декорируемую функцию и оборачивает её.
 
@@ -25,6 +26,7 @@ def log(filename=None):
         Returns:
             function: Обернутая функция (wrapper) с сохраненной сигнатурой.
         """
+
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             """Выполняет целевую функцию и записывает лог её работы.
@@ -58,5 +60,7 @@ def log(filename=None):
             finally:
                 if filename:
                     output.close()
+
         return wrapper
+
     return decorator
