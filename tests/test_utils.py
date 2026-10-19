@@ -4,8 +4,9 @@ from src.utils import load_transactions
 
 
 @patch("os.path.exists", return_value=True)  # 1. Говорим: "Файл существует!"
-@patch("builtins.open", new_callable=mock_open,
-       read_data='[{"id": 1, "amount": 100}]')  # 2. Говорим: "Вот что внутри файла"
+@patch(
+    "builtins.open", new_callable=mock_open, read_data='[{"id": 1, "amount": 100}]'
+)  # 2. Говорим: "Вот что внутри файла"
 def test_load_transactions_success_mock(mock_open_obj, mock_exists):
     """Тест: файл существует, JSON валидный, внутри список -> возвращаем данные"""
     fake_path = "any_path.json"
@@ -59,7 +60,7 @@ def test_load_transactions_not_a_list_mock(mock_open_obj, mock_exists):
 
 
 @patch("os.path.exists", return_value=True)
-@patch("builtins.open", new_callable=mock_open, read_data='[]')  # Пустой список
+@patch("builtins.open", new_callable=mock_open, read_data="[]")  # Пустой список
 def test_load_transactions_empty_list_mock(mock_open_obj, mock_exists):
     """Тест: файл содержит пустой список [] -> возвращаем []"""
     fake_path = "empty_list.json"
@@ -68,5 +69,3 @@ def test_load_transactions_empty_list_mock(mock_open_obj, mock_exists):
 
     assert result == []
     mock_exists.assert_called_once_with(fake_path)
-
-
