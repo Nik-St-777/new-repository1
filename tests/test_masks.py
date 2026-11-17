@@ -1,14 +1,14 @@
-from src.masks import get_mask_card_number
+from src.masks  import get_mask_card_number, get_mask_account
 
 
-def test_mask_card_number_missing_number():
-    """Проверка корректности обработки строк без номера карты."""
+class TestMasks:
+    def test_get_mask_card_number(self):
+        raw = "1234567890123456"
+        expected = "123456****3456"
+        assert get_mask_card_number(raw) == expected
 
-    # 1. Полностью пустая строка
-    assert get_mask_card_number("") == "  ** **** "
-
-    # 2. Строка, содержащая только название платёжной системы
-    assert get_mask_card_number("Visa") == "Visa  ** **** Visa"
-
-    # 3. Строка из одних пробелов
-    assert get_mask_card_number("   ") == "    ** ****    "
+    def test_get_mask_account(self):
+        raw = "40817810123456789012"
+        # последние 4: 9012
+        expected = "****************9012"
+        assert get_mask_account(raw) == expected

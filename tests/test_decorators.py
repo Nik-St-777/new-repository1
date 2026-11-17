@@ -1,6 +1,4 @@
-import functools
 import io
-import sys
 import unittest
 from unittest.mock import call, mock_open, patch
 from src.decorators import log

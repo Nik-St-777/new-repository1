@@ -1,14 +1,27 @@
-import logging
-
-logger = logging.getLogger("utils")
+import json
 
 
-def do_something(value):
-    logger.debug("Вход в do_something, value=%r", value)
+def load_transactions(file_path: str):
+    """
+    Загружает список транзакций из JSON‑файла.
+
+    Параметры:
+        file_path (str): Путь к JSON‑файлу с данными транзакций.
+
+    Возвращает:
+        list: Список транзакций (словарей), если файл существует и содержит список.
+              Если файл не найден, содержит некорректный JSON или данные не являются
+              списком — возвращается пустой список
+
+    """
     try:
-        result = value * 2
-        logger.info("do_something: успех, результат=%r", result)
-        return result
-    except Exception as e:
-        logger.error("do_something: ошибка, value=%r, exception=%s", value, e, exc_info=True)
-        raise
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        # Если внутри не список — возвращаем пустой список
+        if isinstance(data, list):
+            return data
+        else:
+            return []
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
