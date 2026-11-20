@@ -6,7 +6,7 @@ authors = [
     {name = "Ваше Имя"}
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["pandas (>=3.0.6,<4.0.0)"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -22,7 +22,9 @@ lint = [
 ]
 dev = [
     "pytest (>=9.0.3,<10.0.0)",
-    "pytest-cov (>=7.1.0,<8.0.0)"
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "pytest-mock (>=3.17.0,<4.0.0)",
+    "requests-mock (>=1.12.1,<2.0.0)"
 ]
 
 [tool.black]
@@ -43,3 +45,13 @@ line-length = 119
 [tool.ruff.lint]
 select = ["E", "F", "W", "ANN", "I"]
 fixable = ["ALL"]
+[tool.poetry]
+# ...
+packages = [{include = "external_api", from = "src"}]
+
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+
+

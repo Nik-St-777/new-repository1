@@ -1,6 +1,5 @@
 import json
 
-
 def load_transactions(file_path: str):
     """
     Загружает список транзакций из JSON‑файла.
@@ -25,3 +24,7 @@ def load_transactions(file_path: str):
             return []
     except (FileNotFoundError, json.JSONDecodeError):
         return []
+
+
+if __name__ == "main":
+    print(load_transactions("transactions.json"))

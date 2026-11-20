@@ -15,6 +15,10 @@ print(masked)
 def get_mask_account(account: str) -> str:
     """Пример маскировки счёта: оставляем последние 4 символа."""
 
+
+
     if len(account) <= 4:
         return "*" * len(account)
     return "*" * (len(account) - 4) + account[-4:]
+if __name__ == "main":
+    masks()
