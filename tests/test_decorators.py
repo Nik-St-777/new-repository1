@@ -1,6 +1,4 @@
-import functools
 import io
-import sys
 import unittest
 from unittest.mock import call, mock_open, patch
 from src.decorators import log
@@ -31,9 +29,7 @@ class TestLogDecorator(unittest.TestCase):
             with self.assertRaises(ZeroDivisionError):
                 division_func(1, 0)
 
-            expected_output = (
-                "division_func error: ZeroDivisionError. Inputs: (1, 0), {}\n"
-            )
+            expected_output = "division_func error: ZeroDivisionError. Inputs: (1, 0), {}\n"
             self.assertEqual(mock_stdout.getvalue(), expected_output)
 
     @patch("builtins.open", new_callable=mock_open)
@@ -49,10 +45,7 @@ class TestLogDecorator(unittest.TestCase):
 
         mock_file.assert_called_once_with("app.log", "a", encoding="utf-8")
 
-        mock_file().write.assert_has_calls([
-            call("sample_func ok"),
-            call("\n")
-        ])
+        mock_file().write.assert_has_calls([call("sample_func ok"), call("\n")])
 
     @patch("builtins.open", new_callable=mock_open)
     def test_file_error(self, mock_file):
@@ -68,7 +61,4 @@ class TestLogDecorator(unittest.TestCase):
         mock_file.assert_called_once_with("errors.log", "a", encoding="utf-8")
 
         expected_text = "fail_func error: ValueError. Inputs: (1, 'test'), {'key': 'val'}"
-        mock_file().write.assert_has_calls([
-            call(expected_text),
-            call("\n")
-        ])
+        mock_file().write.assert_has_calls([call(expected_text), call("\n")])

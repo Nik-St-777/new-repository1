@@ -1,41 +1,24 @@
 def get_mask_card_number(card_number: str) -> str:
-    """
-    Функция get_mask_card_number принимает на вход номер карты и возвращает ее маску
-    """
-    # Маскирует номер карты в формате XXXX XX** **** XXXX
-    # Маскируем нужную часть: первые 6 цифр, две звезды, четыре звезды и последние 4 цифры
-    masked = f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
-    return masked
+    """Маскирует номер карты, оставляя первые 6 и последние 4 цифры."""
+
+    card_number = card_number.replace(" ", "").replace("-", "")
+    if len(card_number) < 16:
+        return card_number  # или можно кинуть ошибку — зависит от требований
+    return f"{card_number[:6]}****{card_number[-4:]}"
 
 
-# Пример работы:
-print(get_mask_card_number("7000792289606361"))
-# Вывод: 7000 79** **** 6361
+# Вызов функции
+masked = get_mask_card_number("1234 5678 9012 3456")
+print(masked)
 
 
-def get_mask_account(account_number: str) -> str:
-    """
-    Функция get_mask_account принимает на вход номер счета и возвращает его маску
-    """
-    # Маскирует номер счета, оставляя только последние 4 цифры.
-    return f"**{account_number[-4:]}"
+def get_mask_account(account: str) -> str:
+    """Пример маскировки счёта: оставляем последние 4 символа."""
 
 
-# Пример работы:
-print(get_mask_account("73654108430135874305"))
-# Вывод: **4305
 
-
-def test_mask_card_number_missing_number():
-    """Проверка корректности обработки строк без номера карты."""
-
-    # 1. Полностью пустая строка
-    # Срезы [:4], [4:6] и [-4:] вернут пустые строки. Останутся только пробелы и звезды шаблона.
-    assert get_mask_card_number("") == "  ** **** "
-
-    # 2. Строка, содержащая только название платежной системы (без цифр)
-    # Срез [:4] заберет 'Visa', срез [4:6] будет пустым, а срез [-4:] снова заберет 'Visa'.
-    assert get_mask_card_number("Visa") == "Visa  ** **** Visa"
-
-    # 3. Строка из одних пробелов
-    assert get_mask_card_number("   ") == "    ** ****    "
+    if len(account) <= 4:
+        return "*" * len(account)
+    return "*" * (len(account) - 4) + account[-4:]
+if __name__ == "main":
+    masks()
