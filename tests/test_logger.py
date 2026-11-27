@@ -1,7 +1,9 @@
 import pytest
-from logger import log  # Импортируем ваш декоратор
+from src.logging_config import setup_logging
+from src.decorators import log
 
-# --- ТЕСТЫ ДЛЯ ВЫВОДА В КОНСОЛЬ (используем capsys) ---
+
+
 
 
 def test_console_logging_success(capsys):
